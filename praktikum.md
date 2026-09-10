@@ -273,7 +273,7 @@ Kloonimine toob kogu repo koos ajalooga sinu arvutisse. Mine kaustast välja, et
 
 ```
 $ cd ~/Documents
-$ git clone https://github.com/tpall/git-praktikum-naidis.git
+$ git clone https://github.com/rstats-tartu/git-praktikum-naidis.git
 $ cd git-praktikum-naidis
 $ ls
 $ git log --oneline

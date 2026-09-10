@@ -44,7 +44,7 @@ Järjekorras, mida lisada. Iga plokk on iseseisev.
 ## Ettevalmistus õppejõule
 
 - [ ] Saada `eeltoo.md` osalejatele **vähemalt nädal enne** ja tuleta 2 päeva enne meelde.
-- [ ] Näidisrepo `tpall/git-praktikum-naidis` on lokaalselt kaustas `~/Projects/git-praktikum-naidis`, saada üles: `gh repo create tpall/git-praktikum-naidis --public --source=. --push`. Sisaldab README, `analyys.R`, `proovid.csv`, `.gitignore`, kausta `osalejad/` PR-harjutuseks ja 7 commit'i (üks kirjavea parandus `git show` demoks).
+- [x] Näidisrepo [rstats-tartu/git-praktikum-naidis](https://github.com/rstats-tartu/git-praktikum-naidis), lokaalne koopia `~/Projects/git-praktikum-naidis`. Sisaldab README, `analyys.R`, `proovid.csv`, `.gitignore`, kausta `osalejad/` PR-harjutuseks ja 7 commit'i (üks kirjavea parandus `git show` demoks). Materjalid ise: [rstats-tartu/git-praktikum](https://github.com/rstats-tartu/git-praktikum).
 - [ ] Renderda slaidid: `quarto render slaidid.qmd`. Tulemus `slaidid.html` on ühefaililine, töötab ilma võrguta.
 - [ ] Terminali font projektoril vähemalt 20 pt, hele taust. Puhas kaust demo jaoks (`rm -rf ~/demo && mkdir ~/demo`).
 - [ ] Kontrolli, et ruumi Wi-Fi laseb GitHubi (port 443).
