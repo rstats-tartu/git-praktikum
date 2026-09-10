@@ -1,0 +1,405 @@
+---
+title: "Versioonikontroll gitiga"
+subtitle: "Loeng-praktikum algajatele"
+author: "Taavi Päll"
+date: today
+date-format: "D. MMMM YYYY"
+lang: et
+format:
+  revealjs:
+    theme: [default, custom.scss]
+    slide-number: true
+    embed-resources: true
+    code-line-numbers: false
+    highlight-style: github
+    width: 1280
+    height: 720
+    footer: "git-praktikum"
+    mermaid:
+      theme: neutral
+---
+
+## Kava
+
+| Aeg | Mida |
+|---|---|
+| 15 min | Miks versioonikontroll? |
+| 10 min | Seadistuse kontroll |
+| 30 min | **Praktikum 1:** lokaalne git |
+| 10 min | Paus |
+| 15 min | Kolm ala ja kaugrepo |
+| 30 min | **Praktikum 2:** GitHub |
+| 10 min | Kokkuvõte |
+
+Juhend: `praktikum.md` (link on tahvlil)
+
+# Miks versioonikontroll?
+
+## Tuttav pilt?
+
+```
+analyys.R
+analyys_v2.R
+analyys_v2_parandatud.R
+analyys_final.R
+analyys_final_TÕELINE.R
+analyys_final_TÕELINE_juhendaja_kommentaarid.R
+analyys_final2.R
+```
+
+::: {.fragment}
+- Milline neist tegi joonise 3 artiklis?
+- Mis vahe on `final` ja `final2` vahel?
+- Kumb on uuem, `final_TÕELINE` või `final2`?
+:::
+
+## Kolm probleemi
+
+::: {.incremental}
+1. **Ajalugu.** Mis muutus, millal, miks? Kas saan tagasi eile töötanud versiooni?
+2. **Reprodutseeritavus.** Retsensent küsib kuue kuu pärast: "Kuidas täpselt saadi tabel 2?"
+3. **Koostöö.** Kaks inimest muudavad sama skripti. Kumma versioon jääb?
+:::
+
+## Versioonikontroll
+
+Süsteem, mis salvestab projekti **hetktõmmiseid** ja mäletab, kes, millal ja miks midagi muutis.
+
+::: {.fragment}
+- Iga hetktõmmis on **commit**
+- Commit'ide jada on **ajalugu**
+- Kaust koos ajalooga on **repositoorium** (repo)
+:::
+
+::: {.fragment}
+Git on 2005. aastast Linuxi tuuma jaoks tehtud tööriist, tänaseks de facto standard nii tarkvaras kui teaduses.
+:::
+
+## Git ≠ GitHub
+
+::: {.columns}
+::: {.column width="50%"}
+**Git**
+
+- programm sinu arvutis
+- töötab ilma internetita
+- hoiab ajalugu `.git` kaustas
+- avatud lähtekoodiga, tasuta
+:::
+::: {.column width="50%"}
+**GitHub**
+
+- veebiteenus (Microsoft)
+- hoiab git-repode koopiaid
+- varundus, jagamine, koostöö, issue'd
+- alternatiivid: GitLab, Codeberg, ülikooli oma GitLab
+:::
+:::
+
+::: {.fragment}
+Täna: pool aega gitiga lokaalselt, pool aega GitHubiga.
+:::
+
+## Mida gitti panna?
+
+::: {.columns}
+::: {.column width="50%"}
+**Jah**
+
+- skriptid (R, Python, bash)
+- Nextflow/Snakemake töövood
+- README, dokumentatsioon
+- väikesed näidisandmed
+- konfiguratsioon
+- käsikirja LaTeX/Quarto
+:::
+::: {.column width="50%"}
+**Ei**
+
+- toorandmed (fastq, bam, vcf)
+- suured tulemused, mis tulevad skriptist uuesti
+- paroolid, tokenid
+- patsiendiandmed
+- `.DS_Store`, `.Rhistory`
+:::
+:::
+
+::: {.fragment}
+Rusikareegel: gitti läheb see, mille sa **kirjutasid**, mitte see, mille masin **arvutas**.
+:::
+
+## Kuidas git mõtleb
+
+```{mermaid}
+%%| fig-width: 10
+gitGraph
+  commit id: "Lisa README"
+  commit id: "Lisa andmed ja skript"
+  commit id: "Lisa mediaanid"
+  commit id: "Paranda gruppide nimed"
+```
+
+Iga commit on **terve projekti** hetktõmmis, mitte ainult muudetud fail. Iga commit teab oma eelkäijat. Igal commit'il on räsi, nt `a3f9c12`, mis on tema nimi.
+
+## Seadistuse kontroll {.smaller}
+
+Terminalis (Windows: **Git Bash**):
+
+```bash
+git --version
+git config --global user.name
+git config --global user.email
+gh auth status
+```
+
+Kui nimi või e-post on tühi:
+
+```bash
+git config --global user.name "Eesnimi Perenimi"
+git config --global user.email "sinu@email.ee"
+git config --global core.editor "nano"
+```
+
+::: {.callout-tip}
+Kui `gh auth status` ei tööta, tee praktikum 1 ikkagi kaasa. GitHubi osa vaatame koos.
+:::
+
+## Terminal 30 sekundiga
+
+```bash
+pwd            # kus ma olen
+ls             # mis siin on
+cd Documents   # liigu kausta
+cd ..          # samm tagasi
+mkdir projekt  # loo kaust
+```
+
+- **Tab** täiendab nime, **nool üles** toob eelmise käsu
+- Jäid `(END)` peale kinni: vajuta **q**
+- Avanes vim: **Esc**, `:q!`, **Enter**
+- Windows Git Bash: tee on `/c/Users/Nimi`, mitte `C:\Users\Nimi`
+
+# Praktikum 1: lokaalne git
+
+## Praktikum 1 {.smaller}
+
+Juhend `praktikum.md`, osa 1. 30 minutit.
+
+::: {.columns}
+::: {.column width="50%"}
+1. `git init`
+2. README + esimene commit
+3. andmed ja skript
+4. muuda, `git diff`, commit
+5. `.gitignore`
+6. `git restore`
+:::
+::: {.column width="50%"}
+Neli käsku, mida kasutad iga päev:
+
+```bash
+git status
+git add <fail>
+git commit -m "sõnum"
+git log --oneline
+```
+:::
+:::
+
+::: {.callout-note}
+`git status` iga sammu vahel. See ei tee kunagi midagi katki ja ütleb alati, mis toimub.
+:::
+
+## Paus
+
+10 minutit
+
+# Kolm ala ja kaugrepo
+
+## Miks `add` ja `commit` on eraldi?
+
+```{mermaid}
+%%| fig-width: 11
+flowchart LR
+  W["Töökaust<br/>(failid kettal)"] -- "git add" --> S["Staging<br/>(järgmise commit'i sisu)"]
+  S -- "git commit" --> R["Repo<br/>(.git, ajalugu)"]
+  R -- "git restore" --> W
+```
+
+::: {.incremental}
+- Töökaust: see, mida sa redaktoris näed
+- Staging: "need muudatused lähevad järgmisse commit'i"
+- Repo: salvestatud hetktõmmised
+:::
+
+## Miks staging on kasulik
+
+Muutsid hommikul kolme faili:
+
+- `analyys.R`: uus mediaanide arvutus
+- `joonis.R`: parandasid teljesildi
+- `README.md`: kirjaviga
+
+::: {.fragment}
+Kolm eraldi commit'i, mida hiljem eraldi vaadata või tagasi võtta:
+
+```bash
+git add analyys.R   && git commit -m "Lisa mediaanid"
+git add joonis.R    && git commit -m "Paranda y-telje silt"
+git add README.md   && git commit -m "Paranda kirjaviga"
+```
+:::
+
+::: {.fragment}
+Väike ja ühe teemaga commit on hea commit.
+:::
+
+## `git status` loeb kolme ala
+
+```
+On branch main
+Changes to be committed:            ← staging
+        modified:   analyys.R
+
+Changes not staged for commit:      ← töökaust
+        modified:   README.md
+
+Untracked files:                    ← git ei jälgi üldse
+        joonis.png
+```
+
+## Kaugrepo
+
+```{mermaid}
+%%| fig-width: 11
+flowchart LR
+  A["Sinu arvuti<br/>repo"] -- "git push" --> G["GitHub<br/>origin"]
+  G -- "git pull" --> A
+  G -- "git clone" --> B["Kolleegi arvuti<br/>repo"]
+  B -- "git push" --> G
+```
+
+- **origin** on tavanimi kaugrepo jaoks
+- **push**: saada minu commit'id sinna
+- **pull**: too sealsed commit'id siia
+- **clone**: tee kaugrepost esimene lokaalne koopia
+
+## Miks GitHub {.smaller}
+
+::: {.incremental}
+- **Varundus.** Sülearvuti kaob, kood on alles.
+- **Sünkroonimine.** Sama projekt sülearvutis, lauaarvutis, klastris.
+- **Jagamine.** Artikli koodile link: "Kood on saadaval aadressil github.com/…". Retsensendid ja rahastajad küsivad seda üha rohkem.
+- **Koostöö.** Juhendaja näeb, mida tegid. Kolleeg parandab vea ja saadab pull request'i.
+- **Nähtavus.** GitHubi profiil on osa CV-st.
+:::
+
+::: {.fragment}
+::: {.callout-warning}
+Avalik repo on avalik igavesti (ka kustutatud commit'id on tihti alles). Patsiendiandmed, paroolid ja tokenid ei lähe sinna kunagi. Kahtluse korral privaatne repo.
+:::
+:::
+
+## Kolm käsku, mis sind praktikumis ootavad
+
+```bash
+# 1. seo lokaalne repo GitHubiga (üks kord)
+git remote add origin https://github.com/KASUTAJA/geeniekspressioon.git
+
+# 2. saada (esimesel korral -u, edaspidi ainult git push)
+git push -u origin main
+
+# 3. too (kui keegi, ka sina ise veebis, muutis midagi)
+git pull
+```
+
+# Praktikum 2: GitHub
+
+## Praktikum 2 {.smaller}
+
+Juhend `praktikum.md`, osa 2. 30 minutit.
+
+1. Loo **tühi** repo GitHubis (ilma README-ta!)
+2. `git remote add origin …` ja `git push -u origin main`
+3. Muuda README-d GitHubi veebis, `git pull`
+4. Klooni õppejõu näidisrepo
+5. Kui aega jääb: klooni naabri repo
+
+::: {.callout-tip}
+`push` lükati tagasi sõnumiga *fetch first*? Tee `git pull`, siis `git push` uuesti.
+:::
+
+# Kokkuvõte
+
+## Mida sa nüüd oskad
+
+```bash
+git init / git clone      # alusta
+git status                # vaata
+git add + git commit      # salvesta
+git log / git diff        # uuri
+git restore               # võta tagasi
+git push / git pull       # sünkrooni
+```
+
+::: {.fragment}
+Sellest piisab, et hoida oma analüüsiprojekt korras ja GitHubis varundatud. Kõik muu on selle peale ehitatud.
+:::
+
+## Kui hakkab valesti minema
+
+::: {.incremental}
+- **Alati** esimesena `git status`
+- Commit'itud muudatust on väga raske kaotada. Git hoiab isegi "kustutatud" commit'e veel nädalaid (`git reflog`).
+- Commit'imata muudatust on väga lihtne kaotada. Commit'i tihti.
+- Kui kõik on segi ja repo on GitHubis: klooni uude kausta puhas koopia ja tõsta oma muudatused käsitsi üle. Häbi pole, kõik teevad seda.
+- Veateade → kopeeri Google'isse või küsi LLM-ilt. Git'i veateated on sageli ise lahenduse ette öelnud.
+:::
+
+## Mis jäi rääkimata
+
+::: {.columns}
+::: {.column width="50%"}
+**Harud (branches)**
+
+Katseta uut lähenemist, ilma et `main` katki läheks. Kui töötab, liida (`merge`) sisse.
+
+```bash
+git switch -c uus-normaliseerimine
+# ... töö, commit'id ...
+git switch main
+git merge uus-normaliseerimine
+```
+:::
+::: {.column width="50%"}
+**Pull request**
+
+Kolleegi repos: klooni → haru → push → GitHubis "pull request". Omanik vaatab üle ja liidab. Nii käib igasugune avatud teaduse koostöö.
+
+**Konfliktid**
+
+Kaks inimest muutsid sama rida. Git küsib, kumb jääb. Ebameeldiv, aga rutiinne.
+:::
+:::
+
+## Edasi õppimiseks
+
+- **Happy Git and GitHub for the useR**, Jenny Bryan, [happygitwithr.com](https://happygitwithr.com). Parim R-kasutajale.
+- **Software Carpentry: Version Control with Git**, [swcarpentry.github.io/git-novice](https://swcarpentry.github.io/git-novice/). Teadlastele, umbes tänane loeng pikemalt.
+- **Pro Git**, [git-scm.com/book](https://git-scm.com/book). Ametlik raamat, peatükid 1–3 piisavad kauaks.
+- **Oh Shit, Git!?!**, [ohshitgit.com](https://ohshitgit.com). Kui midagi läks valesti.
+- Iga git-käsu abi: `git <käsk> --help`
+
+## Kodutöö (soovitus)
+
+Võta oma **päris** projekt, mis praegu on kaust failidega.
+
+1. `git init`, `.gitignore` andmete jaoks, esimene commit
+2. Loo GitHubis privaatne repo, `push`
+3. Järgmise nädala jooksul iga töösessiooni lõpus: `status`, `add`, `commit`, `push`
+
+Kahe nädala pärast `git log` ja vaata, kas suudad ajaloost aru saada, mida tegid.
+
+## Küsimused
+
+Materjalid: `eeltoo.md`, `praktikum.md`, need slaidid.

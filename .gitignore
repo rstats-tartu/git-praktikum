@@ -1,0 +1,10 @@
+# renderdatud väljund
+*.html
+*.pdf
+*.docx
+~$*
+
+# RStudio
+.Rproj.user/
+.Rhistory
+.RData

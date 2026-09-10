@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-monospace: "SF Mono", Menlo, Consolas, monospace;
+$presentation-font-size-root: 30px;
+$code-block-font-size: 0.8em;
+$link-color: #1a5fb4;
+
+/*-- scss:rules --*/
+.reveal pre code { padding: 0.6em; }
+.reveal table { font-size: 0.85em; }
+.reveal .callout { font-size: 0.85em; }
