@@ -2,7 +2,7 @@
 
 Kõik käsud kirjutad terminali (Windows: **Git Bash**). Iga sammu lõpus on **kontroll**, et teaksid, kas läks õigesti. Kui jääd kinni, tõsta käsi.
 
-Märgid: `$` rea alguses tähendab "kirjuta see käsk". Sümbolit `$` ennast ei kirjuta.
+Märgid: `` rea alguses tähendab "kirjuta see käsk". Sümbolit `` ennast ei kirjuta.
 
 ---
 
@@ -31,22 +31,22 @@ git config --global user.email "sinu@email.ee"
 Mine kausta, kus hoiad projekte (nt `Documents`), ja loo uus kaust.
 
 ```
-$ cd ~/Documents
-$ mkdir geeniekspressioon
-$ cd geeniekspressioon
-$ pwd
+ cd ~/Documents
+ mkdir geeniekspressioon
+ cd geeniekspressioon
+ pwd
 ```
 
 Tee sellest kaustast git-repo:
 
 ```
-$ git init
+ git init
 ```
 
 **Kontroll:** `ls -a` näitab peidetud kausta `.git`. Seal elab kogu ajalugu. Ära seda käsitsi puutu.
 
 ```
-$ git status
+ git status
 ```
 
 Ütleb `On branch main` ja `No commits yet`. See käsk on sinu parim sõber. Kasuta seda iga sammu vahel.
@@ -56,7 +56,7 @@ $ git status
 Loo README. Kas oma redaktoris või otse terminalis:
 
 ```
-$ cat > README.md <<'X'
+ cat > README.md <<'X'
 # Geeniekspressiooni analüüs
 
 Katseprojekt git-praktikumi jaoks.
@@ -66,7 +66,7 @@ X
 Vaata, mida git näeb:
 
 ```
-$ git status
+ git status
 ```
 
 `Untracked files: README.md`. Git näeb faili, aga ei jälgi seda veel.
@@ -74,15 +74,15 @@ $ git status
 Kaks sammu: pane fail **staging'usse** (`add`) ja siis **salvesta hetktõmmis** (`commit`).
 
 ```
-$ git add README.md
-$ git status
-$ git commit -m "Lisa README"
+ git add README.md
+ git status
+ git commit -m "Lisa README"
 ```
 
 **Kontroll:**
 
 ```
-$ git log
+ git log
 ```
 
 Näitab ühte commit'i: räsi (pikk kuueteistkümnendarv), autor, kuupäev, sõnum. Kui ekraan jääb `(END)` peale kinni, vajuta **q**.
@@ -92,7 +92,7 @@ Näitab ühte commit'i: räsi (pikk kuueteistkümnendarv), autor, kuupäev, sõn
 Loo väike andmefail:
 
 ```
-$ cat > proovid.csv <<'X'
+ cat > proovid.csv <<'X'
 proov,grupp,ekspressioon
 S1,kontroll,5.1
 S2,kontroll,4.8
@@ -106,7 +106,7 @@ X
 Ja skript (R; kui eelistad Pythonit, kirjuta sama asi Pythonis, git ei hooli):
 
 ```
-$ cat > analyys.R <<'X'
+ cat > analyys.R <<'X'
 # Loeb proovide tabeli ja arvutab ekspressiooni keskmise gruppide kaupa
 proovid <- read.csv("proovid.csv")
 keskmised <- aggregate(ekspressioon ~ grupp, data = proovid, FUN = mean)
@@ -117,10 +117,10 @@ X
 Lisa mõlemad korraga ja commit'i:
 
 ```
-$ git status
-$ git add proovid.csv analyys.R
-$ git commit -m "Lisa proovide andmed ja keskmiste skript"
-$ git log --oneline
+ git status
+ git add proovid.csv analyys.R
+ git commit -m "Lisa proovide andmed ja keskmiste skript"
+ git log --oneline
 ```
 
 **Kontroll:** `git log --oneline` näitab kahte rida.
@@ -137,15 +137,15 @@ print(mediaanid)
 Salvesta. Nüüd:
 
 ```
-$ git status
-$ git diff
+ git status
+ git diff
 ```
 
 `git diff` näitab täpselt, millised read muutusid: `+` on lisatud, `-` eemaldatud. See on see, mida sa failikoopiate puhul kunagi ei näe.
 
 ```
-$ git add analyys.R
-$ git commit -m "Lisa mediaanide arvutus"
+ git add analyys.R
+ git commit -m "Lisa mediaanide arvutus"
 ```
 
 **Kontroll:** `git log --oneline` näitab kolme rida.
@@ -157,15 +157,15 @@ Analüüs tekitab tulemusi, mida ei ole mõtet versioonida (need tulevad skripti
 Teeskle, et skript tekitas tulemuste kausta:
 
 ```
-$ mkdir tulemused
-$ echo "grupp,keskmine" > tulemused/keskmised.csv
-$ git status
+ mkdir tulemused
+ echo "grupp,keskmine" > tulemused/keskmised.csv
+ git status
 ```
 
 Git pakub `tulemused/` lisamiseks. Ütle talle, et ära paku:
 
 ```
-$ cat > .gitignore <<'X'
+ cat > .gitignore <<'X'
 # analüüsi väljund, tuleb skriptist uuesti
 tulemused/
 
@@ -179,14 +179,14 @@ tulemused/
 .Rhistory
 .RData
 X
-$ git status
+ git status
 ```
 
 **Kontroll:** `tulemused/` on kadunud nimekirjast, `.gitignore` on untracked. Commit'i see:
 
 ```
-$ git add .gitignore
-$ git commit -m "Lisa gitignore"
+ git add .gitignore
+ git commit -m "Lisa gitignore"
 ```
 
 ### 1.6 Oih, tegin vea
@@ -194,8 +194,8 @@ $ git commit -m "Lisa gitignore"
 Riku skript ära: kustuta redaktoris `analyys.R` failist pool sisu ja salvesta. Siis:
 
 ```
-$ git diff
-$ git restore analyys.R
+ git diff
+ git restore analyys.R
 ```
 
 **Kontroll:** fail on jälle terve. `git status` ütleb `nothing to commit, working tree clean`.
@@ -233,9 +233,9 @@ GitHub näitab lehte juhistega. Meid huvitab plokk *"…or push an existing repo
 Terminalis, oma `geeniekspressioon` kaustas. Asenda `KASUTAJA` oma GitHubi kasutajanimega:
 
 ```
-$ git remote add origin https://github.com/KASUTAJA/geeniekspressioon.git
-$ git remote -v
-$ git push -u origin main
+ git remote add origin https://github.com/KASUTAJA/geeniekspressioon.git
+ git remote -v
+ git push -u origin main
 ```
 
 (SSH-kasutaja: `git@github.com:KASUTAJA/geeniekspressioon.git`.)
@@ -257,10 +257,10 @@ Andmed: proovid.csv, skript: analyys.R
 Sinu arvutis seda muudatust veel pole:
 
 ```
-$ cat README.md
-$ git pull
-$ cat README.md
-$ git log --oneline
+ cat README.md
+ git pull
+ cat README.md
+ git log --oneline
 ```
 
 **Kontroll:** rida on kohal ja logis on uus commit, mille tegid veebis.
@@ -272,11 +272,11 @@ See on täpselt see, mis juhtub, kui kolleeg (või sina teisest arvutist) midagi
 Kloonimine toob kogu repo koos ajalooga sinu arvutisse. Mine kaustast välja, et mitte teha repo repo sisse:
 
 ```
-$ cd ~/Documents
-$ git clone https://github.com/rstats-tartu/git-praktikum-naidis.git
-$ cd git-praktikum-naidis
-$ ls
-$ git log --oneline
+ cd ~/Documents
+ git clone https://github.com/rstats-tartu/git-praktikum-naidis.git
+ cd git-praktikum-naidis
+ ls
+ git log --oneline
 ```
 
 **Kontroll:** failid ja ajalugu on olemas. Sa saad neid muuta ja lokaalselt commit'ida, aga `push` ebaõnnestub, sest see pole sinu repo. Selleks on pull request, millest räägime lõpus.
