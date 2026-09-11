@@ -9,17 +9,17 @@ Märgid: `$` rea alguses tähendab "kirjuta see käsk". Sümbolit `$` ennast ei 
 ## 0. Kas kõik on paigas? (5 min)
 
 ```
-$ git --version
-$ git config --global user.name
-$ git config --global user.email
-$ gh auth status
+git --version
+git config --global user.name
+git config --global user.email
+gh auth status
 ```
 
 **Kontroll:** kõik neli annavad mõistliku vastuse. Kui nimi või e-post on tühi:
 
 ```
-$ git config --global user.name "Eesnimi Perenimi"
-$ git config --global user.email "sinu@email.ee"
+git config --global user.name "Eesnimi Perenimi"
+git config --global user.email "sinu@email.ee"
 ```
 
 ---
